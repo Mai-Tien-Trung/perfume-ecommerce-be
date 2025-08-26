@@ -1,5 +1,15 @@
 package com.example.perfume_ecommerce.controller;
 
+import com.example.perfume_ecommerce.model.Brand;
+import com.example.perfume_ecommerce.model.Product;
+import com.example.perfume_ecommerce.repository.BrandRepository;
+import com.example.perfume_ecommerce.repository.ProductRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/products")
 @RequiredArgsConstructor
