@@ -2,12 +2,12 @@ package com.example.perfume_ecommerce.model;
 
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+@Data
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "brand")
 public class Brand {
     @Id

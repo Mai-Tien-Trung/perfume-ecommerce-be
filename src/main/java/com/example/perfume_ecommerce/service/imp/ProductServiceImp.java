@@ -6,6 +6,7 @@ import com.example.perfume_ecommerce.model.Brand;
 import com.example.perfume_ecommerce.model.Product;
 import com.example.perfume_ecommerce.repository.BrandRepository;
 import com.example.perfume_ecommerce.repository.ProductRepository;
+import com.example.perfume_ecommerce.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
