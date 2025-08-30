@@ -41,4 +41,6 @@ public class Product {
     // Quan hệ với gallery ảnh
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductImage> images;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<FragranceNote> notes;
 }

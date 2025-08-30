@@ -13,6 +13,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/images")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
+
 public class ProductImageController {
 
     private final ProductImageRepository imageRepository;
