@@ -2,8 +2,8 @@ package com.example.perfume_ecommerce.service.imp;
 
 import com.example.perfume_ecommerce.dto.request.ProductRequest;
 import com.example.perfume_ecommerce.dto.response.ProductResponse;
-import com.example.perfume_ecommerce.model.Brand;
-import com.example.perfume_ecommerce.model.Product;
+import com.example.perfume_ecommerce.entity.Brand;
+import com.example.perfume_ecommerce.entity.Product;
 import com.example.perfume_ecommerce.repository.BrandRepository;
 import com.example.perfume_ecommerce.repository.ProductRepository;
 import com.example.perfume_ecommerce.service.ProductService;

@@ -1,4 +1,4 @@
-package com.example.perfume_ecommerce.model;
+package com.example.perfume_ecommerce.entity;
 
 import com.example.perfume_ecommerce.enums.NoteType;
 import com.fasterxml.jackson.annotation.JsonIgnore;

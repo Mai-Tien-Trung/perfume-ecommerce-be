@@ -1,6 +1,6 @@
 package com.example.perfume_ecommerce.service;
 
-import com.example.perfume_ecommerce.model.ProductVariant;
+import com.example.perfume_ecommerce.entity.ProductVariant;
 
 import java.util.List;
 import java.util.Optional;

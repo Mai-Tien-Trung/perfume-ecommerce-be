@@ -1,6 +1,6 @@
 package com.example.perfume_ecommerce.controller;
 
-import com.example.perfume_ecommerce.model.Brand;
+import com.example.perfume_ecommerce.entity.Brand;
 import com.example.perfume_ecommerce.repository.BrandRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

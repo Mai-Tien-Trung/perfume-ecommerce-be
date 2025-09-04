@@ -1,7 +1,6 @@
-package com.example.perfume_ecommerce.service;
+package com.example.perfume_ecommerce.security;
 
-import com.example.perfume_ecommerce.enums.Role;
-import com.example.perfume_ecommerce.model.User;
+import com.example.perfume_ecommerce.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -14,42 +13,30 @@ import java.util.Date;
 
 @Service
 public class JwtService {
-
     private static final String SECRET = "mysecretmysecretmysecretmysecretmysecret123";
-    private static final long EXPIRATION = 1000 * 60 * 60 * 10; // 10 giờ
+    private static final long EXPIRATION = 1000 * 60 * 60 * 10; // 10h
 
     private SecretKey getSignKey() {
         return Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET));
     }
 
-    // generate token từ email + role
-    public String generateToken(String email, Role role) {
+    public String generateToken(User user) {
         return Jwts.builder()
-                .setSubject(email)
-                .claim("role", role.name()) // JWT chỉ chứa chuỗi
+                .setSubject(user.getUsername()) // ✅ subject = username
+                .claim("role", user.getRole().name())
+                .claim("userId", user.getId())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION))
                 .signWith(getSignKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
-
-    // overload để nhận luôn User
-    public String generateToken(User user) {
-        return generateToken(user.getEmail(), user.getRole());
-    }
-
-    public String extractEmail(String token) {
+    public String extractUsername(String token) {
         return extractAllClaims(token).getSubject();
     }
 
-    public String extractRole(String token) {
-        return (String) extractAllClaims(token).get("role");
-    }
-
-    public boolean isTokenValid(String token, String email) {
-        final String extractedEmail = extractEmail(token);
-        return (extractedEmail.equals(email) && !isTokenExpired(token));
+    public boolean isTokenValid(String token, String username) {
+        return extractUsername(token).equals(username) && !isTokenExpired(token);
     }
 
     private boolean isTokenExpired(String token) {

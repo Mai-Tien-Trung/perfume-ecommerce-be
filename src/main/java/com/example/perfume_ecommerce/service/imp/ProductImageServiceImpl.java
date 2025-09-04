@@ -1,7 +1,7 @@
 package com.example.perfume_ecommerce.service.imp;
 
-import com.example.perfume_ecommerce.model.Product;
-import com.example.perfume_ecommerce.model.ProductImage;
+import com.example.perfume_ecommerce.entity.Product;
+import com.example.perfume_ecommerce.entity.ProductImage;
 import com.example.perfume_ecommerce.repository.ProductImageRepository;
 import com.example.perfume_ecommerce.repository.ProductRepository;
 import com.example.perfume_ecommerce.service.ProductImageService;

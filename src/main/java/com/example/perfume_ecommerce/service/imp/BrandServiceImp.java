@@ -2,7 +2,7 @@ package com.example.perfume_ecommerce.service.imp;
 
 import com.example.perfume_ecommerce.dto.request.BrandRequest;
 import com.example.perfume_ecommerce.dto.response.BrandResponse;
-import com.example.perfume_ecommerce.model.Brand;
+import com.example.perfume_ecommerce.entity.Brand;
 import com.example.perfume_ecommerce.repository.BrandRepository;
 import com.example.perfume_ecommerce.service.BrandService;
 import lombok.RequiredArgsConstructor;
