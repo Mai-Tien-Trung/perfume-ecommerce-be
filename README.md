@@ -32,6 +32,3 @@ Website bán nước hoa với đầy đủ chức năng từ đăng nhập, qu�
 ```bash
 cd backend
 ./mvnw spring-boot:run
-
-
-
