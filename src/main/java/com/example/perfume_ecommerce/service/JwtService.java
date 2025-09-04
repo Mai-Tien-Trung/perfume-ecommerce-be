@@ -1,73 +1,66 @@
 package com.example.perfume_ecommerce.service;
 
-
+import com.example.perfume_ecommerce.enums.Role;
 import com.example.perfume_ecommerce.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.security.core.userdetails.UserDetails;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Service;
 
+import javax.crypto.SecretKey;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Function;
 
 @Service
 public class JwtService {
 
-    // 🔑 key bí mật (nên để trong application.properties)
-    private static final String SECRET_KEY = "my_secret_key_123456";
+    private static final String SECRET = "mysecretmysecretmysecretmysecretmysecret123";
+    private static final long EXPIRATION = 1000 * 60 * 60 * 10; // 10 giờ
 
-    // ============ GENERATE TOKEN ============
-    public String generateToken(User user) {
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("role", user.getRole().name()); // gắn role vào token
-        return createToken(claims, user.getEmail());
+    private SecretKey getSignKey() {
+        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET));
     }
 
-    private String createToken(Map<String, Object> claims, String subject) {
+    // generate token từ email + role
+    public String generateToken(String email, Role role) {
         return Jwts.builder()
-                .setClaims(claims)
-                .setSubject(subject) // subject = email
-                .setIssuedAt(new Date(System.currentTimeMillis())) // ngày tạo
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24)) // 24h
-                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+                .setSubject(email)
+                .claim("role", role.name()) // JWT chỉ chứa chuỗi
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION))
+                .signWith(getSignKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    // ============ VALIDATE TOKEN ============
-    public boolean validateToken(String token, UserDetails userDetails) {
-        final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+
+    // overload để nhận luôn User
+    public String generateToken(User user) {
+        return generateToken(user.getEmail(), user.getRole());
     }
 
-    // ============ EXTRACT INFO ============
-    public String extractUsername(String token) {
-        return extractClaim(token, Claims::getSubject);
+    public String extractEmail(String token) {
+        return extractAllClaims(token).getSubject();
     }
 
     public String extractRole(String token) {
-        return extractAllClaims(token).get("role", String.class);
+        return (String) extractAllClaims(token).get("role");
     }
 
-    public Date extractExpiration(String token) {
-        return extractClaim(token, Claims::getExpiration);
-    }
-
-    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = extractAllClaims(token);
-        return claimsResolver.apply(claims);
+    public boolean isTokenValid(String token, String email) {
+        final String extractedEmail = extractEmail(token);
+        return (extractedEmail.equals(email) && !isTokenExpired(token));
     }
 
     private boolean isTokenExpired(String token) {
-        return extractExpiration(token).before(new Date());
+        return extractAllClaims(token).getExpiration().before(new Date());
     }
 
     private Claims extractAllClaims(String token) {
         return Jwts.parser()
-                .setSigningKey(SECRET_KEY)
-                .parseClaimsJws(token)
-                .getBody();
+                .verifyWith(getSignKey())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
     }
 }
