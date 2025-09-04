@@ -1,6 +1,6 @@
 package com.example.perfume_ecommerce.repository;
 
-import com.example.perfume_ecommerce.model.Product;
+import com.example.perfume_ecommerce.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

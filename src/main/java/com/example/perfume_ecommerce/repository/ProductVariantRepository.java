@@ -1,6 +1,6 @@
 package com.example.perfume_ecommerce.repository;
 
-import com.example.perfume_ecommerce.model.ProductVariant;
+import com.example.perfume_ecommerce.entity.ProductVariant;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

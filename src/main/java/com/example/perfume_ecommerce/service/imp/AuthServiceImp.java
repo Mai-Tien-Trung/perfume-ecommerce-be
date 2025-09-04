@@ -1,12 +1,12 @@
 package com.example.perfume_ecommerce.service.imp;
 
+import com.example.perfume_ecommerce.security.JwtService;
 import com.example.perfume_ecommerce.dto.request.LoginRequest;
 import com.example.perfume_ecommerce.dto.request.RegisterRequest;
 import com.example.perfume_ecommerce.dto.response.AuthResponse;
-import com.example.perfume_ecommerce.model.User;
+import com.example.perfume_ecommerce.entity.User;
 import com.example.perfume_ecommerce.repository.UserRepository;
 import com.example.perfume_ecommerce.service.AuthService;
-import com.example.perfume_ecommerce.service.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -27,12 +27,12 @@ public class AuthServiceImp implements AuthService {
         User user = new User();
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setFullName(request.getFullName());
+        user.setUsername(request.getUsername());
         userRepository.save(user);
     }
     @Override
     public AuthResponse login(LoginRequest request) {
-        User user = userRepository.findByEmail(request.getEmail())
+        User user = userRepository.findByUsername(request.getUsername())
                 .orElseThrow(() -> new RuntimeException("Invalid email or password"));
 
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {

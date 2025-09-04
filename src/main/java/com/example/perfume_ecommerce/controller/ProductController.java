@@ -1,7 +1,7 @@
 package com.example.perfume_ecommerce.controller;
 
-import com.example.perfume_ecommerce.model.Brand;
-import com.example.perfume_ecommerce.model.Product;
+import com.example.perfume_ecommerce.entity.Brand;
+import com.example.perfume_ecommerce.entity.Product;
 import com.example.perfume_ecommerce.repository.BrandRepository;
 import com.example.perfume_ecommerce.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
