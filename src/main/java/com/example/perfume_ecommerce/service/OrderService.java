@@ -9,4 +9,8 @@ public interface OrderService {
     OrderResponse checkout(Long userId, CheckoutRequest request);
     OrderResponse getOrderById(Long orderId);
     List<OrderResponse> getOrdersByUser(Long userId);
+    List<OrderResponse> getAllOrders();
+    OrderResponse updateStatus(Long orderId, String status);
+    void deleteOrder(Long orderId);
+
 }

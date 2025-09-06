@@ -99,5 +99,29 @@ public class OrderServiceImpl implements OrderService {
                 .items(itemResponses)
                 .build();
     }
+    @Override
+    public List<OrderResponse> getAllOrders() {
+        return orderRepository.findAll().stream()
+                .map(this::mapToResponse)
+                .toList();
+    }
+
+    @Override
+    public OrderResponse updateStatus(Long orderId, String status) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order not found"));
+
+        order.setStatus(OrderStatus.valueOf(status)); // convert String -> Enum
+        Order saved = orderRepository.save(order);
+        return mapToResponse(saved);
+    }
+
+    @Override
+    public void deleteOrder(Long orderId) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order not found"));
+        orderRepository.delete(order);
+    }
+
 }
 
