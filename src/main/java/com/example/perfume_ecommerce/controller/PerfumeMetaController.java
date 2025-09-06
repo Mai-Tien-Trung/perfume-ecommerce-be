@@ -8,6 +8,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/meta")
+@CrossOrigin(origins = "*")
+
 public class PerfumeMetaController {
     private final PerfumeMetaService service;
 

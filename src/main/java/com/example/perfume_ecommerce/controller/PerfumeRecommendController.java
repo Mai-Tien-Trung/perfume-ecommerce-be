@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/recommend")
+@CrossOrigin(origins = "*")
+
 public class PerfumeRecommendController {
     private final PerfumeRecommendService service;
 
