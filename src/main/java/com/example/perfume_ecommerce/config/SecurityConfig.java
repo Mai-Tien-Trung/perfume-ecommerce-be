@@ -43,6 +43,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()   // login/register
                         .requestMatchers("/api/cart/**").authenticated() // giỏ hàng phải login
+                        .requestMatchers("/api/orders/**").authenticated() // giỏ hàng phải login
+
                         .anyRequest().permitAll()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
